@@ -39,7 +39,7 @@
 struct Product: Identifiable, Hashable {
     let id: UUID
     let name: String
-    let price: Decimal      // en pesos mexicanos (MXN)
+    let price: Double       // en pesos mexicanos (MXN); llega como número Double del servicio web
     let imageURL: URL?      // guardada pero aún no se usa para renderizar
 }
 ```
@@ -103,8 +103,8 @@ Cada paso deja el proyecto compilando.
 
 - **Sí:** catálogo local en memoria. Es lo mínimo para validar la pantalla sin red ni persistencia.
 - **No:** API remota o JSON en el bundle. Añaden estados de carga y error; van en otra spec.
-- **Sí:** `price` como `Decimal` con formato MXN. Evita imprecisión de `Double` en dinero.
-- **No:** `Double` ni `String` ya formateado para el precio.
+- **Sí:** `price` como `Double` con formato MXN. El servicio web lo enviará como número `Double`, así que el modelo coincide con el contrato y no hace falta conversión.
+- **No:** `Decimal` (decisión inicial, reemplazada el 2026-10-29 a pedido del usuario) ni `String` ya formateado. `Decimal` evitaría imprecisión de flotantes, pero obligaría a convertir desde el servicio.
 - **Sí:** `imageURL` en el modelo aunque no se use. El contrato de datos queda listo para la spec de imágenes.
 - **Sí:** arquitectura MVVM (el usuario escribió "MMVM"; se interpreta como MVVM) con `ObservableObject`, porque el target es iOS 16 y no admite `@Observable`.
 - **Sí:** filtro en vivo, insensible a mayúsculas y acentos, por subcadena. Es lo esperado en un buscador de tienda.

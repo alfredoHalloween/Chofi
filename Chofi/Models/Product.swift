@@ -10,6 +10,6 @@ import Foundation
 struct Product: Identifiable, Hashable {
     let id: UUID
     let name: String
-    let price: Decimal
+    let price: Double
     let imageURL: URL?
 }
