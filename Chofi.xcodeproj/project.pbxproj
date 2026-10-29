@@ -7,13 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		06042CCFEB0872A538865DCA /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6405CC72A9348CBDCADE4F /* ProductDetailView.swift */; };
 		26CF689D3093984500F8BBA0 /* ChofiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CF689C3093984500F8BBA0 /* ChofiApp.swift */; };
-		26CF689F3093984500F8BBA0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CF689E3093984500F8BBA0 /* ContentView.swift */; };
 		26CF68A13093984900F8BBA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26CF68A03093984900F8BBA0 /* Assets.xcassets */; };
 		26CF68A43093984900F8BBA0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26CF68A33093984900F8BBA0 /* Preview Assets.xcassets */; };
 		26CF68AE3093984A00F8BBA0 /* ChofiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CF68AD3093984A00F8BBA0 /* ChofiTests.swift */; };
 		26CF68B83093984A00F8BBA0 /* ChofiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CF68B73093984A00F8BBA0 /* ChofiUITests.swift */; };
 		26CF68BA3093984A00F8BBA0 /* ChofiUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CF68B93093984A00F8BBA0 /* ChofiUITestsLaunchTests.swift */; };
+		42343C46D0D711E803BE1D27 /* ProductListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F64524B24D8A0537F99567E6 /* ProductListView.swift */; };
+		8CE65ECC827319BAEFCAD93E /* Product.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F6ABB7AF69930F9CF66152 /* Product.swift */; };
+		9D6FBA814B57568A92CBA932 /* Product+Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6934ACD5470F3AB09543F00 /* Product+Samples.swift */; };
+		B3E4BEB633BE476A9F349DC5 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 550638DCFC7FE3A2548082A9 /* MainTabView.swift */; };
+		C712D36FD3E88B4E123D46BD /* ProductRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8424EAE36BDE7C5D22A63E2 /* ProductRowView.swift */; };
+		C8D36B1CFD7DCAE49B8E608A /* ProductListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6852C5C3EAA27596E4EF29D0 /* ProductListViewModelTests.swift */; };
+		E3E60FA779540A2FD61D2127 /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301A5AA957B79CC7EE1DBACC /* ProductListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +41,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12F6ABB7AF69930F9CF66152 /* Product.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Product.swift; sourceTree = "<group>"; };
 		26CF68993093984500F8BBA0 /* Chofi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chofi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26CF689C3093984500F8BBA0 /* ChofiApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChofiApp.swift; sourceTree = "<group>"; };
-		26CF689E3093984500F8BBA0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		26CF68A03093984900F8BBA0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		26CF68A33093984900F8BBA0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		26CF68A93093984A00F8BBA0 /* ChofiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChofiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +51,13 @@
 		26CF68B33093984A00F8BBA0 /* ChofiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChofiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26CF68B73093984A00F8BBA0 /* ChofiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChofiUITests.swift; sourceTree = "<group>"; };
 		26CF68B93093984A00F8BBA0 /* ChofiUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChofiUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		301A5AA957B79CC7EE1DBACC /* ProductListViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductListViewModel.swift; sourceTree = "<group>"; };
+		550638DCFC7FE3A2548082A9 /* MainTabView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
+		5E6405CC72A9348CBDCADE4F /* ProductDetailView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductDetailView.swift; sourceTree = "<group>"; };
+		6852C5C3EAA27596E4EF29D0 /* ProductListViewModelTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductListViewModelTests.swift; sourceTree = "<group>"; };
+		C8424EAE36BDE7C5D22A63E2 /* ProductRowView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductRowView.swift; sourceTree = "<group>"; };
+		F64524B24D8A0537F99567E6 /* ProductListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
+		F6934ACD5470F3AB09543F00 /* Product+Samples.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Product+Samples.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,9 +109,11 @@
 			isa = PBXGroup;
 			children = (
 				26CF689C3093984500F8BBA0 /* ChofiApp.swift */,
-				26CF689E3093984500F8BBA0 /* ContentView.swift */,
 				26CF68A03093984900F8BBA0 /* Assets.xcassets */,
 				26CF68A23093984900F8BBA0 /* Preview Content */,
+				E82189CDBFEFD59C2BBF8261 /* Models */,
+				9BC647007BA7F693613685F7 /* ViewModels */,
+				A8953F7AFC69292D055BB0E8 /* Views */,
 			);
 			path = Chofi;
 			sourceTree = "<group>";
@@ -114,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				26CF68AD3093984A00F8BBA0 /* ChofiTests.swift */,
+				6852C5C3EAA27596E4EF29D0 /* ProductListViewModelTests.swift */,
 			);
 			path = ChofiTests;
 			sourceTree = "<group>";
@@ -125,6 +142,37 @@
 				26CF68B93093984A00F8BBA0 /* ChofiUITestsLaunchTests.swift */,
 			);
 			path = ChofiUITests;
+			sourceTree = "<group>";
+		};
+		9BC647007BA7F693613685F7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				301A5AA957B79CC7EE1DBACC /* ProductListViewModel.swift */,
+			);
+			name = ViewModels;
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A8953F7AFC69292D055BB0E8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C8424EAE36BDE7C5D22A63E2 /* ProductRowView.swift */,
+				5E6405CC72A9348CBDCADE4F /* ProductDetailView.swift */,
+				F64524B24D8A0537F99567E6 /* ProductListView.swift */,
+				550638DCFC7FE3A2548082A9 /* MainTabView.swift */,
+			);
+			name = Views;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		E82189CDBFEFD59C2BBF8261 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				12F6ABB7AF69930F9CF66152 /* Product.swift */,
+				F6934ACD5470F3AB09543F00 /* Product+Samples.swift */,
+			);
+			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,8 +305,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				26CF689F3093984500F8BBA0 /* ContentView.swift in Sources */,
 				26CF689D3093984500F8BBA0 /* ChofiApp.swift in Sources */,
+				8CE65ECC827319BAEFCAD93E /* Product.swift in Sources */,
+				9D6FBA814B57568A92CBA932 /* Product+Samples.swift in Sources */,
+				E3E60FA779540A2FD61D2127 /* ProductListViewModel.swift in Sources */,
+				C712D36FD3E88B4E123D46BD /* ProductRowView.swift in Sources */,
+				06042CCFEB0872A538865DCA /* ProductDetailView.swift in Sources */,
+				42343C46D0D711E803BE1D27 /* ProductListView.swift in Sources */,
+				B3E4BEB633BE476A9F349DC5 /* MainTabView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +321,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26CF68AE3093984A00F8BBA0 /* ChofiTests.swift in Sources */,
+				C8D36B1CFD7DCAE49B8E608A /* ProductListViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
