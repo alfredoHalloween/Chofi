@@ -23,7 +23,7 @@ struct ProductRowView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(product.name)
                     .font(.headline)
-                Text(product.price.formatted(.currency(code: "MXN")))
+                Text(product.formattedPrice)
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }

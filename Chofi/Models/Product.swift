@@ -12,4 +12,8 @@ struct Product: Identifiable, Hashable {
     let name: String
     let price: Double
     let imageURL: URL?
+
+    var formattedPrice: String {
+        price.formatted(.currency(code: "MXN").locale(Locale(identifier: "es_MX")))
+    }
 }

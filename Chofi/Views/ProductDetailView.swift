@@ -24,7 +24,7 @@ struct ProductDetailView: View {
             Text(product.name)
                 .font(.title)
                 .multilineTextAlignment(.center)
-            Text(product.price.formatted(.currency(code: "MXN")))
+            Text(product.formattedPrice)
                 .font(.title2)
                 .foregroundColor(.secondary)
 
@@ -33,6 +33,7 @@ struct ProductDetailView: View {
         .padding()
         .navigationTitle(product.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar(.hidden, for: .tabBar)
     }
 }
 

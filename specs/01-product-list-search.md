@@ -46,7 +46,7 @@ struct Product: Identifiable, Hashable {
 
 Convenciones:
 
-- El precio se muestra con `price.formatted(.currency(code: "MXN"))`, p. ej. `$32.50`.
+- El precio se muestra con `Product.formattedPrice`, que usa `.currency(code: "MXN")` con `Locale(identifier: "es_MX")`, p. ej. `$32.50`.
 - `imageURL` es opcional; la UI no la lee en esta spec.
 - Datos de ejemplo en `Product.samples` (`static let`), definidos en `Chofi/Models/Product+Samples.swift`.
 
@@ -104,6 +104,7 @@ Cada paso deja el proyecto compilando.
 - **Sí:** catálogo local en memoria. Es lo mínimo para validar la pantalla sin red ni persistencia.
 - **No:** API remota o JSON en el bundle. Añaden estados de carga y error; van en otra spec.
 - **Sí:** `price` como `Double` con formato MXN. El servicio web lo enviará como número `Double`, así que el modelo coincide con el contrato y no hace falta conversión.
+- **Sí:** forzar el locale `es_MX` en el formato del precio. Con el locale del dispositivo en inglés, MXN se mostraba como `MX$32.50` en lugar de `$32.50`. **No:** respetar el locale del usuario, porque la tienda es mexicana.
 - **No:** `Decimal` (decisión inicial, reemplazada el 2026-10-29 a pedido del usuario) ni `String` ya formateado. `Decimal` evitaría imprecisión de flotantes, pero obligaría a convertir desde el servicio.
 - **Sí:** `imageURL` en el modelo aunque no se use. El contrato de datos queda listo para la spec de imágenes.
 - **Sí:** arquitectura MVVM (el usuario escribió "MMVM"; se interpreta como MVVM) con `ObservableObject`, porque el target es iOS 16 y no admite `@Observable`.
