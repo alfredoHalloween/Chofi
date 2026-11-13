@@ -1,0 +1,40 @@
+# macOS
+.DS_Store
+
+# Xcode – datos por usuario
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+
+# Xcode – build y resultados
+build/
+DerivedData/
+*.xcresult
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Packages/
+Package.resolved.bak
+
+# CocoaPods / Carthage (por si se agregan)
+Pods/
+Carthage/Build/
+
+# fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Claude Code – config local
+.claude/settings.local.json
+
+# Datos locales
+products.csv
