@@ -1,6 +1,6 @@
 # SPEC 02 — Lector de código de barras con la cámara
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** Ninguna
 > **Date:** 2026-11-24
 > **Objective:** Crear una pantalla SwiftUI reutilizable que lea un código de barras de producto con la cámara y entregue su valor a quien la presenta mediante un `Binding<String?>`.
@@ -106,24 +106,24 @@ Cada paso deja el proyecto compilando.
 
 ## Criterios de aceptación
 
-- [ ] El proyecto compila sin errores ni warnings nuevos para iOS 16.
-- [ ] La primera vez que se abre el escáner, iOS pide permiso de cámara con el texto de `NSCameraUsageDescription`.
-- [ ] Con el permiso concedido, se ve la imagen de la cámara con un recuadro guía centrado.
-- [ ] Al apuntar a un EAN-13 de un producto, el binding recibe exactamente esos 13 dígitos.
-- [ ] Un EAN-8 y un UPC-E también se leen y se devuelven.
-- [ ] Un código QR no se lee.
-- [ ] Un código que está fuera del recuadro guía no se lee.
-- [ ] Al leer, el teléfono vibra una vez y la pantalla se cierra sola.
-- [ ] Tras leer, el host del `#Preview` muestra el valor recibido.
-- [ ] "Cancelar" cierra la pantalla y el binding queda en `nil`.
-- [ ] El botón de linterna la enciende y la apaga.
-- [ ] El botón de linterna no aparece en dispositivos sin linterna.
-- [ ] Con el permiso denegado, se ve el mensaje con "Abrir Ajustes" y "Cerrar".
-- [ ] "Abrir Ajustes" abre la página de Chofi en Ajustes.
-- [ ] En el simulador se muestra "Cámara no disponible" con "Cerrar" y la app no crashea.
-- [ ] La sesión de cámara se detiene al cerrar la pantalla (el indicador verde de cámara se apaga).
-- [ ] Las pruebas de `BarcodeScannerViewModelTests` pasan con `Cmd+U`.
-- [ ] Ningún archivo de SPEC 01 (`MainTabView`, `ProductListView`, `Product`) cambia.
+- [X] El proyecto compila sin errores ni warnings nuevos para iOS 16.
+- [X] La primera vez que se abre el escáner, iOS pide permiso de cámara con el texto de `NSCameraUsageDescription`.
+- [X] Con el permiso concedido, se ve la imagen de la cámara con un recuadro guía centrado.
+- [X] Al apuntar a un EAN-13 de un producto, el binding recibe exactamente esos 13 dígitos.
+- [X] Un EAN-8 y un UPC-E también se leen y se devuelven.
+- [X] Un código QR no se lee.
+- [X] Un código que está fuera del recuadro guía no se lee.
+- [X] Al leer, el teléfono vibra una vez y la pantalla se cierra sola.
+- [X] Tras leer, el host del `#Preview` muestra el valor recibido.
+- [X] "Cancelar" cierra la pantalla y el binding queda en `nil`.
+- [X] El botón de linterna la enciende y la apaga.
+- [X] El botón de linterna no aparece en dispositivos sin linterna.
+- [X] Con el permiso denegado, se ve el mensaje con "Abrir Ajustes" y "Cerrar".
+- [X] "Abrir Ajustes" abre la página de Chofi en Ajustes.
+- [X] En el simulador se muestra "Cámara no disponible" con "Cerrar" y la app no crashea.
+- [X] La sesión de cámara se detiene al cerrar la pantalla (el indicador verde de cámara se apaga).
+- [X] Las pruebas de `BarcodeScannerViewModelTests` pasan con `Cmd+U`.
+- [X] Ningún archivo de SPEC 01 (`MainTabView`, `ProductListView`, `Product`) cambia.
 
 ---
 
