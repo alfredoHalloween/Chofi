@@ -177,3 +177,30 @@ private struct GuideOverlay: View {
         }
     }
 }
+
+// MARK: - Preview
+
+/// Host de prueba: correr en un iPhone real para usar la cámara.
+private struct BarcodeScannerPreviewHost: View {
+    @State private var scannedCode: String?
+    @State private var isScanning = false
+
+    var body: some View {
+        VStack(spacing: 24) {
+            Text(scannedCode ?? "Sin lectura")
+                .font(.title2.monospacedDigit())
+
+            Button("Escanear") {
+                isScanning = true
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .fullScreenCover(isPresented: $isScanning) {
+            BarcodeScannerView(scannedCode: $scannedCode)
+        }
+    }
+}
+
+#Preview {
+    BarcodeScannerPreviewHost()
+}
