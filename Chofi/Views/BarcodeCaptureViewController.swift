@@ -94,6 +94,12 @@ final class BarcodeCaptureViewController: UIViewController {
         if let sessionStartObserver {
             NotificationCenter.default.removeObserver(sessionStartObserver)
         }
+        // Respaldo por si `viewWillDisappear` no llega: la cámara no debe quedar encendida.
+        sessionQueue.async { [session] in
+            if session.isRunning {
+                session.stopRunning()
+            }
+        }
     }
 
     /// Enciende o apaga la linterna. No hace nada si el dispositivo no tiene.
@@ -120,9 +126,10 @@ final class BarcodeCaptureViewController: UIViewController {
         else { return }
 
         session.beginConfiguration()
-        defer { session.commitConfiguration() }
-
-        guard session.canAddInput(input), session.canAddOutput(metadataOutput) else { return }
+        guard session.canAddInput(input), session.canAddOutput(metadataOutput) else {
+            session.commitConfiguration()
+            return
+        }
         session.addInput(input)
         session.addOutput(metadataOutput)
 
@@ -130,8 +137,15 @@ final class BarcodeCaptureViewController: UIViewController {
         metadataOutput.metadataObjectTypes = Self.supportedTypes.filter {
             metadataOutput.availableMetadataObjectTypes.contains($0)
         }
+        session.commitConfiguration()
 
         self.device = device
+
+        // Arranca en cuanto está configurada. No depende de que SwiftUI reenvíe `viewWillAppear`
+        // al controlador, porque se inserta cuando la pantalla ya está visible.
+        if !session.isRunning {
+            session.startRunning()
+        }
     }
 
     /// Limita la lectura al recuadro guía. Solo es exacto con la sesión corriendo y la capa con tamaño.
