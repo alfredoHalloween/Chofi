@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProductListView: View {
     @State private var viewModel = ProductListViewModel()
+    @State private var isCreatingProduct = false
 
     var body: some View {
         TabView {
@@ -23,8 +24,24 @@ struct ProductListView: View {
                 }
         }
         .navigationTitle("Productos")
+        .toolbar {
+            // upsert solo actúa sobre una lista cargada.
+            if case .loaded = viewModel.state {
+                ToolbarItem(placement: .primaryAction) {
+                    Button {
+                        isCreatingProduct = true
+                    } label: {
+                        Image(systemName: "plus")
+                    }
+                    .accessibilityLabel("Nuevo producto")
+                }
+            }
+        }
+        .sheet(isPresented: $isCreatingProduct) {
+            ProductFormView(mode: .create, onSaved: viewModel.upsert)
+        }
         .navigationDestination(for: Product.self) { product in
-            ProductDetailView(product: product)
+            ProductDetailView(product: product, onProductSaved: viewModel.upsert)
         }
     }
 

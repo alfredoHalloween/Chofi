@@ -1,0 +1,249 @@
+//
+//  ProductFormViewModelTests.swift
+//  ChofiTests
+//
+//  Created by Alfredo García on 26/11/26.
+//
+
+import XCTest
+@testable import Chofi
+
+/// Doble de `ProductsDataManagerProtocol` que registra los requests del formulario.
+/// Con `holdsResponse` en `true`, la respuesta espera hasta llamar a `release()`.
+@MainActor
+private final class FakeProductFormDataManager: ProductsDataManagerProtocol {
+    var result: Result<Product, Error>
+    var holdsResponse = false
+    private(set) var createdRequests: [ProductRequest] = []
+    private(set) var updatedRequests: [(id: Int, request: ProductRequest)] = []
+    private var pending: CheckedContinuation<Void, Never>?
+
+    var callCount: Int { createdRequests.count + updatedRequests.count }
+
+    init(result: Result<Product, Error> = .success(Product.samples[0])) {
+        self.result = result
+    }
+
+    func fetchProducts() async throws -> [Product] {
+        fatalError("No se usa en ProductFormViewModelTests")
+    }
+
+    func createProduct(_ request: ProductRequest) async throws -> Product {
+        createdRequests.append(request)
+        return try await respond()
+    }
+
+    func updateProduct(id: Int, _ request: ProductRequest) async throws -> Product {
+        updatedRequests.append((id, request))
+        return try await respond()
+    }
+
+    func release() {
+        pending?.resume()
+        pending = nil
+    }
+
+    private func respond() async throws -> Product {
+        if holdsResponse {
+            await withCheckedContinuation { pending = $0 }
+        }
+        return try result.get()
+    }
+}
+
+private struct FakeError: LocalizedError {
+    var errorDescription: String? { "Sin conexión" }
+}
+
+@MainActor
+final class ProductFormViewModelTests: XCTestCase {
+
+    private let mexico = Locale(identifier: "es_MX")
+
+    private func makeViewModel(
+        mode: ProductFormMode = .create,
+        dataManager: FakeProductFormDataManager? = nil
+    ) -> ProductFormViewModel {
+        ProductFormViewModel(mode: mode, dataManager: dataManager ?? FakeProductFormDataManager(), locale: mexico)
+    }
+
+    private func fillValidForm(_ viewModel: ProductFormViewModel) {
+        viewModel.barcode = "7501040094422"
+        viewModel.name = "Yoplait Disfruta Fresa 307g"
+        viewModel.brandIdText = "3"
+        viewModel.priceText = "28.50"
+    }
+
+    // MARK: - Estado inicial
+
+    func testCreateStartsEmptyAndCannotSave() {
+        let viewModel = makeViewModel()
+
+        XCTAssertEqual(viewModel.title, "Nuevo producto")
+        XCTAssertEqual(viewModel.barcode, "")
+        XCTAssertEqual(viewModel.name, "")
+        XCTAssertEqual(viewModel.brandIdText, "")
+        XCTAssertEqual(viewModel.priceText, "")
+        XCTAssertFalse(viewModel.canSave)
+    }
+
+    func testEditPreloadsProductAndCannotSaveWithoutChanges() {
+        let product = Product.samples[0]   // Arroz 1 kg, $32.50, brand 1
+        let viewModel = makeViewModel(mode: .edit(product))
+
+        XCTAssertEqual(viewModel.title, "Editar producto")
+        XCTAssertEqual(viewModel.barcode, "7501000000011")
+        XCTAssertEqual(viewModel.name, "Arroz 1 kg")
+        XCTAssertEqual(viewModel.brandIdText, "1")
+        XCTAssertEqual(viewModel.priceText, "32.5")
+        XCTAssertFalse(viewModel.hasChanges)
+        XCTAssertFalse(viewModel.canSave)
+    }
+
+    func testEditWithNilBarcodePreloadsEmptyText() {
+        let viewModel = makeViewModel(mode: .edit(Product.samples[2]))
+
+        XCTAssertEqual(viewModel.barcode, "")
+    }
+
+    func testEditWithChangesCanSave() {
+        let viewModel = makeViewModel(mode: .edit(Product.samples[0]))
+
+        viewModel.name = "Arroz integral 1 kg"
+
+        XCTAssertTrue(viewModel.hasChanges)
+        XCTAssertTrue(viewModel.canSave)
+    }
+
+    // MARK: - Validación
+
+    func testValidFormBuildsRequest() {
+        let viewModel = makeViewModel()
+        fillValidForm(viewModel)
+
+        XCTAssertEqual(
+            viewModel.request,
+            ProductRequest(barcode: "7501040094422", name: "Yoplait Disfruta Fresa 307g", brandId: 3, price: Decimal(string: "28.50")!)
+        )
+        XCTAssertTrue(viewModel.canSave)
+    }
+
+    func testEmptyOrWhitespaceNameIsInvalid() {
+        let viewModel = makeViewModel()
+        fillValidForm(viewModel)
+
+        for name in ["", "   "] {
+            viewModel.name = name
+            XCTAssertNil(viewModel.request, "name: \"\(name)\"")
+        }
+    }
+
+    func testInvalidBrandIdIsInvalid() {
+        let viewModel = makeViewModel()
+        fillValidForm(viewModel)
+
+        for brandId in ["0", "abc", "", "-3"] {
+            viewModel.brandIdText = brandId
+            XCTAssertNil(viewModel.request, "brandIdText: \"\(brandId)\"")
+        }
+    }
+
+    func testInvalidPriceIsInvalid() {
+        let viewModel = makeViewModel()
+        fillValidForm(viewModel)
+
+        for price in ["0", "12.345", "12a", "abc", "", "0.00"] {
+            viewModel.priceText = price
+            XCTAssertNil(viewModel.request, "priceText: \"\(price)\"")
+            XCTAssertFalse(viewModel.canSave, "priceText: \"\(price)\"")
+        }
+    }
+
+    func testWhitespaceBarcodeIsSentAsNil() {
+        let viewModel = makeViewModel()
+        fillValidForm(viewModel)
+        viewModel.barcode = "  "
+
+        XCTAssertNotNil(viewModel.request)
+        XCTAssertNil(viewModel.request?.barcode)
+    }
+
+    func testPriceIsParsedWithMexicanLocale() {
+        let viewModel = makeViewModel()
+        fillValidForm(viewModel)
+        viewModel.priceText = "28.50"
+
+        XCTAssertEqual(viewModel.request?.price, Decimal(string: "28.50"))
+    }
+
+    // MARK: - Guardado
+
+    func testCreateSaveCallsCreateProductAndReturnsProduct() async {
+        let dataManager = FakeProductFormDataManager()
+        let viewModel = makeViewModel(dataManager: dataManager)
+        fillValidForm(viewModel)
+        let expectedRequest = viewModel.request
+
+        let saved = await viewModel.save()
+
+        XCTAssertEqual(dataManager.createdRequests, [expectedRequest!])
+        XCTAssertTrue(dataManager.updatedRequests.isEmpty)
+        XCTAssertEqual(saved, Product.samples[0])
+        XCTAssertEqual(viewModel.saveState.data, Product.samples[0])
+    }
+
+    func testEditSaveCallsUpdateProductWithProductId() async {
+        let product = Product.samples[4]   // id 5
+        let dataManager = FakeProductFormDataManager(result: .success(product))
+        let viewModel = makeViewModel(mode: .edit(product), dataManager: dataManager)
+        viewModel.priceText = "29.90"
+
+        let saved = await viewModel.save()
+
+        XCTAssertTrue(dataManager.createdRequests.isEmpty)
+        XCTAssertEqual(dataManager.updatedRequests.map(\.id), [5])
+        XCTAssertEqual(dataManager.updatedRequests.first?.request.price, Decimal(string: "29.90"))
+        XCTAssertEqual(saved, product)
+    }
+
+    func testFailedSaveSetsErrorAndKeepsFields() async {
+        let dataManager = FakeProductFormDataManager(result: .failure(FakeError()))
+        let viewModel = makeViewModel(dataManager: dataManager)
+        fillValidForm(viewModel)
+
+        let saved = await viewModel.save()
+
+        XCTAssertNil(saved)
+        XCTAssertEqual(viewModel.saveState.error, "Sin conexión")
+        XCTAssertEqual(viewModel.barcode, "7501040094422")
+        XCTAssertEqual(viewModel.name, "Yoplait Disfruta Fresa 307g")
+        XCTAssertEqual(viewModel.brandIdText, "3")
+        XCTAssertEqual(viewModel.priceText, "28.50")
+
+        viewModel.dismissError()
+        guard case .idle = viewModel.saveState else {
+            return XCTFail("Se esperaba .idle y llegó \(viewModel.saveState)")
+        }
+        XCTAssertTrue(viewModel.canSave)
+    }
+
+    func testSecondSaveWhileSavingDoesNotCallDataManagerAgain() async {
+        let dataManager = FakeProductFormDataManager()
+        dataManager.holdsResponse = true
+        let viewModel = makeViewModel(dataManager: dataManager)
+        fillValidForm(viewModel)
+
+        let firstSave = Task { await viewModel.save() }
+        while dataManager.callCount == 0 { await Task.yield() }
+        XCTAssertTrue(viewModel.saveState.isLoading)
+        XCTAssertFalse(viewModel.canSave)
+
+        let secondSave = await viewModel.save()
+        XCTAssertNil(secondSave)
+        XCTAssertEqual(dataManager.callCount, 1)
+
+        dataManager.release()
+        let saved = await firstSave.value
+        XCTAssertEqual(saved, Product.samples[0])
+    }
+}

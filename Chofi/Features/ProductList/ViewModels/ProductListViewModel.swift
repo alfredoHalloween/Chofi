@@ -43,4 +43,16 @@ final class ProductListViewModel {
             state = .error(error.localizedDescription)
         }
     }
+
+    /// Reemplaza el producto con el mismo `id` o lo agrega al final. Solo actúa si el listado está cargado.
+    func upsert(_ product: Product) {
+        guard var products = state.data else { return }
+
+        if let index = products.firstIndex(where: { $0.id == product.id }) {
+            products[index] = product
+        } else {
+            products.append(product)
+        }
+        state = .loaded(products)
+    }
 }

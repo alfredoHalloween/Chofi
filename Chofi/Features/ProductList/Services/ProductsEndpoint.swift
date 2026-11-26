@@ -9,7 +9,9 @@ import Foundation
 import NetworkKit
 
 enum ProductsEndpoint: Endpoint {
-    case products
+    case products                                  // GET  /
+    case create(ProductRequest)                    // POST /
+    case update(id: Int, request: ProductRequest)  // PUT  /{id}
 
     /// URL del túnel de ngrok. Cambia cada vez que se reinicia el túnel.
     var baseURL: String {
@@ -19,6 +21,23 @@ enum ProductsEndpoint: Endpoint {
     var path: String {
         switch self {
         case .products: return "/"
+        case .create: return "/product"
+        case .update(let id, _): return "/product/\(id)"
+        }
+    }
+
+    var method: HTTPMethod {
+        switch self {
+        case .products: return .get
+        case .create: return .post
+        case .update: return .put
+        }
+    }
+
+    var body: (any Encodable)? {
+        switch self {
+        case .products: return nil
+        case .create(let request), .update(_, let request): return request
         }
     }
 
