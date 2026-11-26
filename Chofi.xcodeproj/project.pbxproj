@@ -32,7 +32,9 @@
 		E3E60FA779540A2FD61D2127 /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301A5AA957B79CC7EE1DBACC /* ProductListViewModel.swift */; };
 		8D30931DD5BDFC947F477C62 /* LoaderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060CC89B03C653BDBE6756DC /* LoaderState.swift */; };
 		E91174D61006CA855AF3889C /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB2E25815090E38E0B8E3F3 /* Brand.swift */; };
+		0C260C793D58D7F38CFDFFA1 /* ProductRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF26AC99476FF68FC4EE1BC /* ProductRequest.swift */; };
 		60531CFD881EB46093F17645 /* ProductDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */; };
+		B4449B4577C0C25EAB038B97 /* ProductRequestEncodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4562924858DA990CBA5ECF44 /* ProductRequestEncodingTests.swift */; };
 		E3652025CD729E36E27A6902 /* ProductsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F637161B5FBBFB73FCDD3B6 /* ProductsEndpoint.swift */; };
 		96E11C3B7405C182C3050888 /* ProductsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4F24A83ADEEED143B59F4 /* ProductsDataManager.swift */; };
 /* End PBXBuildFile section */
@@ -81,7 +83,9 @@
 		F6934ACD5470F3AB09543F00 /* Product+Samples.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Product+Samples.swift"; sourceTree = "<group>"; };
 		060CC89B03C653BDBE6756DC /* LoaderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderState.swift; sourceTree = "<group>"; };
 		ADB2E25815090E38E0B8E3F3 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		8FF26AC99476FF68FC4EE1BC /* ProductRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRequest.swift; sourceTree = "<group>"; };
 		552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDecodingTests.swift; sourceTree = "<group>"; };
+		4562924858DA990CBA5ECF44 /* ProductRequestEncodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductRequestEncodingTests.swift; sourceTree = "<group>"; };
 		3F637161B5FBBFB73FCDD3B6 /* ProductsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsEndpoint.swift; sourceTree = "<group>"; };
 		AEA4F24A83ADEEED143B59F4 /* ProductsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,6 +164,7 @@
 				6852C5C3EAA27596E4EF29D0 /* ProductListViewModelTests.swift */,
 				95184C43927C5FE0D2A3A81E /* BarcodeScannerViewModelTests.swift */,
 				552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */,
+				4562924858DA990CBA5ECF44 /* ProductRequestEncodingTests.swift */,
 			);
 			path = ChofiTests;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				12F6ABB7AF69930F9CF66152 /* Product.swift */,
 				F6934ACD5470F3AB09543F00 /* Product+Samples.swift */,
 				ADB2E25815090E38E0B8E3F3 /* Brand.swift */,
+				8FF26AC99476FF68FC4EE1BC /* ProductRequest.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -469,6 +475,7 @@
 				B3E4BEB633BE476A9F349DC5 /* MainTabView.swift in Sources */,
 				8D30931DD5BDFC947F477C62 /* LoaderState.swift in Sources */,
 				E91174D61006CA855AF3889C /* Brand.swift in Sources */,
+				0C260C793D58D7F38CFDFFA1 /* ProductRequest.swift in Sources */,
 				E3652025CD729E36E27A6902 /* ProductsEndpoint.swift in Sources */,
 				96E11C3B7405C182C3050888 /* ProductsDataManager.swift in Sources */,
 			);
@@ -482,6 +489,7 @@
 				C8D36B1CFD7DCAE49B8E608A /* ProductListViewModelTests.swift in Sources */,
 				9462066A5FC3C48D7601B61A /* BarcodeScannerViewModelTests.swift in Sources */,
 				60531CFD881EB46093F17645 /* ProductDecodingTests.swift in Sources */,
+				B4449B4577C0C25EAB038B97 /* ProductRequestEncodingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
