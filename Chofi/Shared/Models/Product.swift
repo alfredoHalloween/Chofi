@@ -10,7 +10,7 @@ import Foundation
 struct Product: Identifiable, Codable, Hashable, Sendable {
     let id: Int
     let name: String
-    let price: Double
+    let price: Decimal   // BigDecimal en el servicio
     let barcode: String?
     let brand: Brand
 

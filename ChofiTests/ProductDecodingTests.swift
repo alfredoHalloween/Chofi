@@ -41,14 +41,31 @@ final class ProductDecodingTests: XCTestCase {
 
         XCTAssertEqual(products[0].id, 1)
         XCTAssertEqual(products[0].name, "Yoplait Disfruta Fresa 307g")
-        XCTAssertEqual(products[0].price, 28.00)
+        XCTAssertEqual(products[0].price, Decimal(string: "28.00"))
         XCTAssertEqual(products[0].barcode, "7501040094422")
         XCTAssertEqual(products[0].brand.name, "Sigma")
 
         XCTAssertEqual(products[1].id, 3)
         XCTAssertEqual(products[1].name, "Coca Cola Zero 600ml")
-        XCTAssertEqual(products[1].price, 21.00)
+        XCTAssertEqual(products[1].price, Decimal(string: "21"))
         XCTAssertNil(products[1].barcode)
         XCTAssertEqual(products[1].brand.name, "Coca Cola")
+    }
+
+    /// `price` es `BigDecimal` en el servicio: `28.10` no debe llegar como `28.0999…`.
+    func testDecodesPriceAsExactDecimal() throws {
+        let json = """
+        {
+          "id": 7,
+          "product_name": "Producto",
+          "price": 28.10,
+          "barcode": null,
+          "brand": { "id": 1, "name": "Marca" }
+        }
+        """
+
+        let product = try JSONDecoder().decode(Product.self, from: Data(json.utf8))
+
+        XCTAssertEqual(product.price, Decimal(string: "28.10"))
     }
 }
