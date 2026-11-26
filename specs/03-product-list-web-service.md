@@ -151,7 +151,7 @@ Cada paso deja el proyecto compilando.
 
 ## Criterios de aceptación
 
-- [ ] El proyecto compila sin errores ni warnings nuevos con deployment target iOS 17.0.
+- [ ] El proyecto compila sin errores ni warnings nuevos fuera de `BarcodeScanner` con deployment target iOS 17.0.
 - [ ] Al abrir la app se ve un `ProgressView` y después la lista con los productos que devuelve `GET /` del servicio.
 - [ ] La primera fila es "Yoplait Disfruta Fresa 307g" con el precio `$28.00`, o el producto con `id` 1 que devuelva el servicio en ese momento.
 - [ ] Un producto con `barcode: null` se decodifica y aparece en la lista.
@@ -174,6 +174,7 @@ Cada paso deja el proyecto compilando.
 - **No:** quedarse en iOS 16 con un cliente `URLSession` propio. Duplica NetworkKit y se aleja del proyecto de referencia.
 - **Sí:** migrar `ProductListViewModel` a `@Observable` con `LoaderState`, igual que `GamesViewModel`. Con iOS 17 ya está disponible. Esto reemplaza la decisión de SPEC 01 de usar `ObservableObject` por estar en iOS 16.
 - **No:** migrar `BarcodeScannerViewModel`. No forma parte de esta feature.
+- **Sí:** aceptar los 6 warnings de deprecación que aparecen en `BarcodeScanner` al subir a iOS 17 (`videoOrientation`, `isVideoOrientationSupported`, `onChange(of:perform:)`). Decidido el 2026-11-26 durante el paso 1. **No:** corregirlos aquí, porque cambiar la rotación de la cámara requiere verificar en un iPhone real y va en su propia spec.
 - **Sí:** `LoaderState` en `Shared/State`, como en Free Games, para reutilizarlo en futuras pantallas con carga.
 - **Sí:** `Product` con `id: Int`, `barcode` y `brand`. El `id` del servicio es estable y reemplaza el `UUID` local. `barcode` y `brand` quedan listos para futuras specs aunque la UI no los muestre.
 - **No:** `create_at` y `update_at`. Usan un formato ISO sin zona horaria que obliga a una estrategia de fechas propia, y nada los usa.
@@ -219,5 +220,6 @@ Cada paso deja el proyecto compilando.
 - Caché, persistencia o modo sin conexión.
 - Cambios en la estructura de pestañas.
 - Migración de `BarcodeScannerViewModel`.
+- Migración del escáner a las APIs de iOS 17 (`videoRotationAngle`, `onChange` nuevo).
 
 Cada uno, si se hace, va en su propia spec.
