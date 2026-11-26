@@ -1,6 +1,6 @@
 # SPEC 03 — Listado de productos desde el servicio web
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** SPEC 01
 > **Date:** 2026-11-26
 > **Objective:** Cargar el listado de productos desde el servicio web de Chofi con NetworkKit y el patrón Endpoint → DataManager → ViewModel con `LoaderState` de Free Games, mostrando estados de carga y de error con reintento.
