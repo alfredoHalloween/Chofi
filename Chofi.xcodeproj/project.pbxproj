@@ -30,6 +30,11 @@
 		C712D36FD3E88B4E123D46BD /* ProductRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8424EAE36BDE7C5D22A63E2 /* ProductRowView.swift */; };
 		C8D36B1CFD7DCAE49B8E608A /* ProductListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6852C5C3EAA27596E4EF29D0 /* ProductListViewModelTests.swift */; };
 		E3E60FA779540A2FD61D2127 /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301A5AA957B79CC7EE1DBACC /* ProductListViewModel.swift */; };
+		8D30931DD5BDFC947F477C62 /* LoaderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060CC89B03C653BDBE6756DC /* LoaderState.swift */; };
+		E91174D61006CA855AF3889C /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB2E25815090E38E0B8E3F3 /* Brand.swift */; };
+		60531CFD881EB46093F17645 /* ProductDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */; };
+		E3652025CD729E36E27A6902 /* ProductsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F637161B5FBBFB73FCDD3B6 /* ProductsEndpoint.swift */; };
+		96E11C3B7405C182C3050888 /* ProductsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4F24A83ADEEED143B59F4 /* ProductsDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +79,11 @@
 		EDDB300CDC25CEC4E799132D /* BarcodeScannerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BarcodeScannerView.swift; sourceTree = "<group>"; };
 		F64524B24D8A0537F99567E6 /* ProductListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		F6934ACD5470F3AB09543F00 /* Product+Samples.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Product+Samples.swift"; sourceTree = "<group>"; };
+		060CC89B03C653BDBE6756DC /* LoaderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderState.swift; sourceTree = "<group>"; };
+		ADB2E25815090E38E0B8E3F3 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDecodingTests.swift; sourceTree = "<group>"; };
+		3F637161B5FBBFB73FCDD3B6 /* ProductsEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsEndpoint.swift; sourceTree = "<group>"; };
+		AEA4F24A83ADEEED143B59F4 /* ProductsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +159,7 @@
 				26CF68AD3093984A00F8BBA0 /* ChofiTests.swift */,
 				6852C5C3EAA27596E4EF29D0 /* ProductListViewModelTests.swift */,
 				95184C43927C5FE0D2A3A81E /* BarcodeScannerViewModelTests.swift */,
+				552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */,
 			);
 			path = ChofiTests;
 			sourceTree = "<group>";
@@ -184,6 +195,7 @@
 			children = (
 				C40F1A00000000C0FFEE0001 /* ViewModels */,
 				C40F1A00000000C0FFEE0002 /* Views */,
+				6B84326D69CCACE15322F2D2 /* Services */,
 			);
 			path = ProductList;
 			sourceTree = "<group>";
@@ -255,6 +267,7 @@
 			children = (
 				12F6ABB7AF69930F9CF66152 /* Product.swift */,
 				F6934ACD5470F3AB09543F00 /* Product+Samples.swift */,
+				ADB2E25815090E38E0B8E3F3 /* Brand.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -281,8 +294,26 @@
 				C40F1A00000000C0FFEE000B /* Models */,
 				C40F1A00000000C0FFEE000C /* Utils */,
 				C40F1A00000000C0FFEE000D /* Views */,
+				3F039F0AF2CC86BA1EFA77A3 /* State */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		3F039F0AF2CC86BA1EFA77A3 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				060CC89B03C653BDBE6756DC /* LoaderState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		6B84326D69CCACE15322F2D2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				3F637161B5FBBFB73FCDD3B6 /* ProductsEndpoint.swift */,
+				AEA4F24A83ADEEED143B59F4 /* ProductsDataManager.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -436,6 +467,10 @@
 				C21844F3D5999501ABDF0B8D /* BarcodeCaptureViewController.swift in Sources */,
 				42343C46D0D711E803BE1D27 /* ProductListView.swift in Sources */,
 				B3E4BEB633BE476A9F349DC5 /* MainTabView.swift in Sources */,
+				8D30931DD5BDFC947F477C62 /* LoaderState.swift in Sources */,
+				E91174D61006CA855AF3889C /* Brand.swift in Sources */,
+				E3652025CD729E36E27A6902 /* ProductsEndpoint.swift in Sources */,
+				96E11C3B7405C182C3050888 /* ProductsDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,6 +481,7 @@
 				26CF68AE3093984A00F8BBA0 /* ChofiTests.swift in Sources */,
 				C8D36B1CFD7DCAE49B8E608A /* ProductListViewModelTests.swift in Sources */,
 				9462066A5FC3C48D7601B61A /* BarcodeScannerViewModelTests.swift in Sources */,
+				60531CFD881EB46093F17645 /* ProductDecodingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,7 +560,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -578,7 +614,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -657,7 +693,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 253N693A8R;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chofi.catalog.ChofiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -677,7 +713,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 253N693A8R;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.chofi.catalog.ChofiTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
