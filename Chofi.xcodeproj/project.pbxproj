@@ -31,6 +31,8 @@
 		C8D36B1CFD7DCAE49B8E608A /* ProductListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6852C5C3EAA27596E4EF29D0 /* ProductListViewModelTests.swift */; };
 		E3E60FA779540A2FD61D2127 /* ProductListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301A5AA957B79CC7EE1DBACC /* ProductListViewModel.swift */; };
 		8D30931DD5BDFC947F477C62 /* LoaderState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060CC89B03C653BDBE6756DC /* LoaderState.swift */; };
+		E91174D61006CA855AF3889C /* Brand.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADB2E25815090E38E0B8E3F3 /* Brand.swift */; };
+		60531CFD881EB46093F17645 /* ProductDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		F64524B24D8A0537F99567E6 /* ProductListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ProductListView.swift; sourceTree = "<group>"; };
 		F6934ACD5470F3AB09543F00 /* Product+Samples.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = "Product+Samples.swift"; sourceTree = "<group>"; };
 		060CC89B03C653BDBE6756DC /* LoaderState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderState.swift; sourceTree = "<group>"; };
+		ADB2E25815090E38E0B8E3F3 /* Brand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Brand.swift; sourceTree = "<group>"; };
+		552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductDecodingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +155,7 @@
 				26CF68AD3093984A00F8BBA0 /* ChofiTests.swift */,
 				6852C5C3EAA27596E4EF29D0 /* ProductListViewModelTests.swift */,
 				95184C43927C5FE0D2A3A81E /* BarcodeScannerViewModelTests.swift */,
+				552B2911F434959ADB98E4AB /* ProductDecodingTests.swift */,
 			);
 			path = ChofiTests;
 			sourceTree = "<group>";
@@ -257,6 +262,7 @@
 			children = (
 				12F6ABB7AF69930F9CF66152 /* Product.swift */,
 				F6934ACD5470F3AB09543F00 /* Product+Samples.swift */,
+				ADB2E25815090E38E0B8E3F3 /* Brand.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -448,6 +454,7 @@
 				42343C46D0D711E803BE1D27 /* ProductListView.swift in Sources */,
 				B3E4BEB633BE476A9F349DC5 /* MainTabView.swift in Sources */,
 				8D30931DD5BDFC947F477C62 /* LoaderState.swift in Sources */,
+				E91174D61006CA855AF3889C /* Brand.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -458,6 +465,7 @@
 				26CF68AE3093984A00F8BBA0 /* ChofiTests.swift in Sources */,
 				C8D36B1CFD7DCAE49B8E608A /* ProductListViewModelTests.swift in Sources */,
 				9462066A5FC3C48D7601B61A /* BarcodeScannerViewModelTests.swift in Sources */,
+				60531CFD881EB46093F17645 /* ProductDecodingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
