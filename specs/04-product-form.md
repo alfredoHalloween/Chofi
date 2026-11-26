@@ -3,7 +3,7 @@
 > **Status:** Aprobado
 > **Depends on:** SPEC 02, SPEC 03
 > **Date:** 2026-11-26
-> **Objective:** Crear un formulario en sheet que da de alta (`POST /`) o edita (`PUT /{id}`) un producto con código de barras opcional (escrito o escaneado), nombre, `brand_id` y precio `Decimal`, y actualizar en memoria el listado y el detalle con el producto que devuelve el servicio.
+> **Objective:** Crear un formulario en sheet que da de alta (`POST /product`) o edita (`PUT /product/{id}`) un producto con código de barras opcional (escrito o escaneado), nombre, `brand_id` y precio `Decimal`, y actualizar en memoria el listado y el detalle con el producto que devuelve el servicio.
 
 ---
 
@@ -25,7 +25,7 @@
 - Mientras guarda: "Guardar" se cambia por un `ProgressView` y el formulario se deshabilita.
 - Si el servicio falla: un alert "No se pudo guardar el producto" con el mensaje del error. El formulario conserva los datos.
 - "Cancelar" con cambios pide confirmación ("Descartar cambios") y el swipe-down se bloquea (`interactiveDismissDisabled`). Sin cambios, cierra directo.
-- `ProductsEndpoint` gana `.create(ProductRequest)` (`POST /`) y `.update(id:request:)` (`PUT /{id}`).
+- `ProductsEndpoint` gana `.create(ProductRequest)` (`POST /product`) y `.update(id:request:)` (`PUT /product/{id}`).
 - `ProductsDataManagerProtocol` gana `createProduct(_:)` y `updateProduct(id:_:)`, que devuelven el `Product` de la respuesta.
 - Migrar `Product.price` de `Double` a `Decimal`.
 - `ProductListViewModel.upsert(_:)`: reemplaza el producto por `id` o lo agrega al final del listado cargado.
@@ -42,7 +42,7 @@
 - Mostrar errores de validación del servidor por campo.
 - Edición desde una swipe action en la lista.
 - Imágenes de producto.
-- Recargar todo el listado (`GET /`) después de guardar.
+- Recargar todo el listado (`GET /product`) después de guardar.
 - Modo sin conexión o cola de guardados pendientes.
 - Corregir la estructura de pestañas o migrar `BarcodeScannerViewModel`.
 
@@ -50,7 +50,7 @@
 
 ## Modelo de datos
 
-Petición de `POST /` y de `PUT /{id}`:
+Petición de `POST /product` y de `PUT /product/{id}`:
 
 ```json
 {
@@ -61,7 +61,7 @@ Petición de `POST /` y de `PUT /{id}`:
 }
 ```
 
-`barcode` se envía como `null` explícito cuando el campo queda vacío. Ambas respuestas tienen la misma forma que un elemento de `GET /` (SPEC 03), con `brand` anidado.
+`barcode` se envía como `null` explícito cuando el campo queda vacío. Ambas respuestas tienen la misma forma que un elemento de `GET /product` (SPEC 03), con `brand` anidado.
 
 ```swift
 struct ProductRequest: Encodable, Equatable, Sendable {
@@ -83,9 +83,9 @@ struct Product: Identifiable, Codable, Hashable, Sendable {
 }
 
 enum ProductsEndpoint: Endpoint {
-    case products                                  // GET  /
-    case create(ProductRequest)                    // POST /
-    case update(id: Int, request: ProductRequest)  // PUT  /{id}
+    case products                                  // GET  /product
+    case create(ProductRequest)                    // POST /product
+    case update(id: Int, request: ProductRequest)  // PUT  /product/{id}
 }
 
 protocol ProductsDataManagerProtocol {
@@ -208,11 +208,11 @@ Cada paso deja el proyecto compilando.
 - [ ] Tocar el ícono `barcode.viewfinder` abre el escáner en pantalla completa. En un iPhone real, al leer un EAN-13 el campo muestra esos 13 dígitos.
 - [ ] Cancelar el escáner deja el campo de código como estaba.
 - [ ] El código se puede escribir a mano, y también se puede dejar vacío.
-- [ ] Al guardar un producto nuevo sin código, el servicio recibe `POST /` con `"barcode": null`. El sheet se cierra y el producto aparece al final de la lista sin que se vea el `ProgressView` de carga.
+- [ ] Al guardar un producto nuevo sin código, el servicio recibe `POST /product` con `"barcode": null`. El sheet se cierra y el producto aparece al final de la lista sin que se vea el `ProgressView` de carga.
 - [ ] El precio "28.10" se guarda y se muestra como `$28.10`.
 - [ ] En el detalle de un producto, la toolbar muestra "Editar". Al tocarlo, se abre "Editar producto" con los datos del producto precargados.
 - [ ] En edición, "Guardar" está deshabilitado mientras no haya cambios.
-- [ ] Al guardar una edición, el servicio recibe `PUT /{id}` con el `id` del producto. El detalle muestra el nombre y el precio nuevos. Al volver, la fila de la lista también los muestra.
+- [ ] Al guardar una edición, el servicio recibe `PUT /product/{id}` con el `id` del producto. El detalle muestra el nombre y el precio nuevos. Al volver, la fila de la lista también los muestra.
 - [ ] Mientras guarda, se ve un `ProgressView` en lugar de "Guardar" y los campos no se pueden editar.
 - [ ] Con el túnel de ngrok apagado, al guardar aparece el alert "No se pudo guardar el producto". Al cerrarlo, los datos escritos siguen en el formulario.
 - [ ] Con cambios sin guardar, "Cancelar" muestra "Descartar cambios". El sheet no se cierra con swipe-down.
@@ -226,7 +226,8 @@ Cada paso deja el proyecto compilando.
 
 ## Decisiones tomadas y descartadas
 
-- **Sí:** `POST /` y `PUT /{id}`, que responden el `Product` completo. Es el contrato que confirmó el usuario y permite actualizar en memoria sin otro `GET`.
+- **Sí:** `POST /product` y `PUT /product/{id}`, que responden el `Product` completo. Es el contrato que confirmó el usuario y permite actualizar en memoria sin otro `GET`.
+- **Sí:** rutas bajo `/product`. El usuario las cambió el 2026-11-26 durante el paso 3. El listado también pasó de `GET /` (SPEC 03) a `GET /product`.
 - **No:** `PATCH`. Siempre se envían los cuatro campos.
 - **No:** recargar el listado tras guardar. El producto devuelto basta, y así se evita un `ProgressView` y una petición extra.
 - **Sí:** el mismo `ProductFormView` y `ProductFormViewModel` para los dos modos, con `ProductFormMode`. Los campos y las reglas son idénticos.
@@ -250,7 +251,7 @@ Cada paso deja el proyecto compilando.
 - **No:** un mensaje de error dentro del formulario.
 - **Sí:** confirmar el descarte e `interactiveDismissDisabled` cuando hay cambios. Evita perder lo escrito por accidente.
 - **Sí:** `ProductDetailView` con `@State product` y un callback `onProductSaved`. Es el cambio mínimo para que el detalle refleje la edición sin compartir el ViewModel de la lista.
-- **Sí:** `upsert` agrega los productos nuevos al final. Coincide con el orden por `id` que devuelve `GET /`.
+- **Sí:** `upsert` agrega los productos nuevos al final. Coincide con el orden por `id` que devuelve `GET /product`.
 - **Sí:** el botón `+` solo aparece con la lista cargada. `upsert` no tiene sobre qué actuar en `idle`, `loading` o `error`.
 - **Sí:** `@MainActor` explícito en `ProductFormViewModel`, como en SPEC 03.
 

@@ -41,7 +41,7 @@ struct ProductListView: View {
             ProductFormView(mode: .create, onSaved: viewModel.upsert)
         }
         .navigationDestination(for: Product.self) { product in
-            ProductDetailView(product: product)
+            ProductDetailView(product: product, onProductSaved: viewModel.upsert)
         }
     }
 

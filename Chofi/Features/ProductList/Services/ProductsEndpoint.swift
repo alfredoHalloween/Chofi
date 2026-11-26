@@ -20,7 +20,8 @@ enum ProductsEndpoint: Endpoint {
 
     var path: String {
         switch self {
-        case .products, .create: return "/product"
+        case .products: return "/"
+        case .create: return "/product"
         case .update(let id, _): return "/product/\(id)"
         }
     }

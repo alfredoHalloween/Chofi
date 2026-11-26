@@ -8,7 +8,16 @@
 import SwiftUI
 
 struct ProductDetailView: View {
-    let product: Product
+    /// Se reemplaza con el producto que devuelve el servicio al editar.
+    @State private var product: Product
+    @State private var isEditing = false
+
+    private let onProductSaved: (Product) -> Void
+
+    init(product: Product, onProductSaved: @escaping (Product) -> Void = { _ in }) {
+        _product = State(initialValue: product)
+        self.onProductSaved = onProductSaved
+    }
 
     var body: some View {
         VStack(spacing: 16) {
@@ -33,6 +42,19 @@ struct ProductDetailView: View {
         .padding()
         .navigationTitle(product.name)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button("Editar") {
+                    isEditing = true
+                }
+            }
+        }
+        .sheet(isPresented: $isEditing) {
+            ProductFormView(mode: .edit(product)) { saved in
+                product = saved
+                onProductSaved(saved)
+            }
+        }
     }
 }
 
