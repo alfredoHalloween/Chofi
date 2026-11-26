@@ -106,6 +106,39 @@ final class ProductListViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.state.data, Product.samples)
     }
 
+    // MARK: - Upsert (SPEC 04)
+
+    func testUpsertWithExistingIdReplacesProductInPlace() async {
+        let viewModel = await makeLoadedViewModel()
+        let original = Product.samples[1]
+        let edited = Product(id: original.id, name: "Frijol bayo 1 kg", price: 40, barcode: nil, brand: original.brand)
+
+        viewModel.upsert(edited)
+
+        var expected = Product.samples
+        expected[1] = edited
+        XCTAssertEqual(viewModel.state.data, expected)
+    }
+
+    func testUpsertWithNewIdAppendsProductAtTheEnd() async {
+        let viewModel = await makeLoadedViewModel()
+        let new = Product(id: 99, name: "Nuevo", price: 10, barcode: nil, brand: Product.samples[0].brand)
+
+        viewModel.upsert(new)
+
+        XCTAssertEqual(viewModel.state.data, Product.samples + [new])
+    }
+
+    func testUpsertWhileIdleDoesNotChangeState() {
+        let viewModel = ProductListViewModel(dataManager: FakeProductsDataManager())
+
+        viewModel.upsert(Product.samples[0])
+
+        guard case .idle = viewModel.state else {
+            return XCTFail("Se esperaba .idle y llegó \(viewModel.state)")
+        }
+    }
+
     // MARK: - Filtrado sobre lo cargado (SPEC 01)
 
     func testEmptySearchReturnsAllProducts() async {
