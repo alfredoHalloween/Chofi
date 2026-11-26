@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		06042CCFEB0872A538865DCA /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E6405CC72A9348CBDCADE4F /* ProductDetailView.swift */; };
 		261C648A30B278240080F449 /* URL+ImageAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 261C648930B278240080F449 /* URL+ImageAssets.swift */; };
+		26A7BEF130B883F800F78980 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 26A7BEF030B883F800F78980 /* NetworkKit */; };
+		26A7BEF330B883F800F78980 /* NetworkKitMocks in Frameworks */ = {isa = PBXBuildFile; productRef = 26A7BEF230B883F800F78980 /* NetworkKitMocks */; };
 		26CF689D3093984500F8BBA0 /* ChofiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26CF689C3093984500F8BBA0 /* ChofiApp.swift */; };
 		26CF68A13093984900F8BBA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26CF68A03093984900F8BBA0 /* Assets.xcassets */; };
 		26CF68A43093984900F8BBA0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26CF68A33093984900F8BBA0 /* Preview Assets.xcassets */; };
@@ -79,6 +81,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26A7BEF330B883F800F78980 /* NetworkKitMocks in Frameworks */,
+				26A7BEF130B883F800F78980 /* NetworkKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,14 +103,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		261C648830B278070080F449 /* Utils */ = {
-			isa = PBXGroup;
-			children = (
-				261C648930B278240080F449 /* URL+ImageAssets.swift */,
-			);
-			path = Utils;
-			sourceTree = "<group>";
-		};
 		26CF68903093984400F8BBA0 = {
 			isa = PBXGroup;
 			children = (
@@ -130,13 +126,11 @@
 		26CF689B3093984500F8BBA0 /* Chofi */ = {
 			isa = PBXGroup;
 			children = (
-				261C648830B278070080F449 /* Utils */,
 				26CF689C3093984500F8BBA0 /* ChofiApp.swift */,
+				C40F1A00000000C0FFEE000A /* Features */,
+				C40F1A00000000C0FFEE000E /* Shared */,
 				26CF68A03093984900F8BBA0 /* Assets.xcassets */,
 				26CF68A23093984900F8BBA0 /* Preview Content */,
-				E82189CDBFEFD59C2BBF8261 /* Models */,
-				9BC647007BA7F693613685F7 /* ViewModels */,
-				A8953F7AFC69292D055BB0E8 /* Views */,
 			);
 			path = Chofi;
 			sourceTree = "<group>";
@@ -168,37 +162,127 @@
 			path = ChofiUITests;
 			sourceTree = "<group>";
 		};
-		9BC647007BA7F693613685F7 /* ViewModels */ = {
+		C40F1A00000000C0FFEE0001 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				301A5AA957B79CC7EE1DBACC /* ProductListViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE0002 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F64524B24D8A0537F99567E6 /* ProductListView.swift */,
+				C8424EAE36BDE7C5D22A63E2 /* ProductRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE0003 /* ProductList */ = {
+			isa = PBXGroup;
+			children = (
+				C40F1A00000000C0FFEE0001 /* ViewModels */,
+				C40F1A00000000C0FFEE0002 /* Views */,
+			);
+			path = ProductList;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE0004 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5E6405CC72A9348CBDCADE4F /* ProductDetailView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE0005 /* ProductDetail */ = {
+			isa = PBXGroup;
+			children = (
+				C40F1A00000000C0FFEE0004 /* Views */,
+			);
+			path = ProductDetail;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE0006 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BFC6D7A4BF610926AC8435D9 /* BarcodeScannerState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE0007 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
 				517EC9920B9134D14E8074BA /* BarcodeScannerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		A8953F7AFC69292D055BB0E8 /* Views */ = {
+		C40F1A00000000C0FFEE0008 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C8424EAE36BDE7C5D22A63E2 /* ProductRowView.swift */,
-				5E6405CC72A9348CBDCADE4F /* ProductDetailView.swift */,
 				EDDB300CDC25CEC4E799132D /* BarcodeScannerView.swift */,
 				05DCE02E1CF75AC1B2C2D2AC /* CameraPreviewView.swift */,
 				609219A3AF83237E1AC833CB /* BarcodeCaptureViewController.swift */,
-				F64524B24D8A0537F99567E6 /* ProductListView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE0009 /* BarcodeScanner */ = {
+			isa = PBXGroup;
+			children = (
+				C40F1A00000000C0FFEE0006 /* Models */,
+				C40F1A00000000C0FFEE0007 /* ViewModels */,
+				C40F1A00000000C0FFEE0008 /* Views */,
+			);
+			path = BarcodeScanner;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE000A /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				C40F1A00000000C0FFEE0003 /* ProductList */,
+				C40F1A00000000C0FFEE0005 /* ProductDetail */,
+				C40F1A00000000C0FFEE0009 /* BarcodeScanner */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE000B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				12F6ABB7AF69930F9CF66152 /* Product.swift */,
+				F6934ACD5470F3AB09543F00 /* Product+Samples.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE000C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				261C648930B278240080F449 /* URL+ImageAssets.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		C40F1A00000000C0FFEE000D /* Views */ = {
+			isa = PBXGroup;
+			children = (
 				550638DCFC7FE3A2548082A9 /* MainTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		E82189CDBFEFD59C2BBF8261 /* Models */ = {
+		C40F1A00000000C0FFEE000E /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				12F6ABB7AF69930F9CF66152 /* Product.swift */,
-				F6934ACD5470F3AB09543F00 /* Product+Samples.swift */,
-				BFC6D7A4BF610926AC8435D9 /* BarcodeScannerState.swift */,
+				C40F1A00000000C0FFEE000B /* Models */,
+				C40F1A00000000C0FFEE000C /* Utils */,
+				C40F1A00000000C0FFEE000D /* Views */,
 			);
-			path = Models;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,6 +301,10 @@
 			dependencies = (
 			);
 			name = Chofi;
+			packageProductDependencies = (
+				26A7BEF030B883F800F78980 /* NetworkKit */,
+				26A7BEF230B883F800F78980 /* NetworkKitMocks */,
+			);
 			productName = Chofi;
 			productReference = 26CF68993093984500F8BBA0 /* Chofi.app */;
 			productType = "com.apple.product-type.application";
@@ -289,6 +377,9 @@
 				Base,
 			);
 			mainGroup = 26CF68903093984400F8BBA0;
+			packageReferences = (
+				26A7BEEF30B883F800F78980 /* XCRemoteSwiftPackageReference "NetworkKit" */,
+			);
 			productRefGroup = 26CF689A3093984500F8BBA0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -673,6 +764,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		26A7BEEF30B883F800F78980 /* XCRemoteSwiftPackageReference "NetworkKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alfredoHalloween/NetworkKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		26A7BEF030B883F800F78980 /* NetworkKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26A7BEEF30B883F800F78980 /* XCRemoteSwiftPackageReference "NetworkKit" */;
+			productName = NetworkKit;
+		};
+		26A7BEF230B883F800F78980 /* NetworkKitMocks */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26A7BEEF30B883F800F78980 /* XCRemoteSwiftPackageReference "NetworkKit" */;
+			productName = NetworkKitMocks;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 26CF68913093984400F8BBA0 /* Project object */;
 }

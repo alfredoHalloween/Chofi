@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct MainTabView: View {
+    @State var path = NavigationPath()
+    
     var body: some View {
-        TabView {
+        NavigationStack(path: $path) {
             ProductListView()
-                .tabItem {
-                    Label("Productos", systemImage: "cart")
-                }
         }
     }
 }

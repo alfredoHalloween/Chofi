@@ -11,18 +11,21 @@ struct ProductListView: View {
     @StateObject private var viewModel = ProductListViewModel()
 
     var body: some View {
-        NavigationStack {
+        TabView {
             List(viewModel.filteredProducts) { product in
                 NavigationLink(value: product) {
                     ProductRowView(product: product)
                 }
             }
             .listStyle(.plain)
-            .navigationTitle("Productos")
-            .navigationDestination(for: Product.self) { product in
-                ProductDetailView(product: product)
-            }
             .searchable(text: $viewModel.searchText, prompt: "Buscar por nombre")
+            .tabItem {
+                Label("Productos", systemImage: "cart")
+            }
+        }
+        .navigationTitle("Productos")
+        .navigationDestination(for: Product.self) { product in
+            ProductDetailView(product: product)
         }
     }
 }

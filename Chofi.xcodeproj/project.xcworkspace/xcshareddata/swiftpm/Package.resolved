@@ -1,0 +1,15 @@
+{
+  "originHash" : "c583b7741938704298f792c95eacfa75084f7d9f9fd3fb37c7aa882717a64de0",
+  "pins" : [
+    {
+      "identity" : "networkkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alfredoHalloween/NetworkKit.git",
+      "state" : {
+        "revision" : "70da811c1ca66119cd30297dad776f7d96e32d2b",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 3
+}
