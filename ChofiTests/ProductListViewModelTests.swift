@@ -29,6 +29,15 @@ private final class FakeProductsDataManager: ProductsDataManagerProtocol {
         return try result.get()
     }
 
+    // El listado no crea ni edita; estos métodos solo cumplen el protocolo.
+    func createProduct(_ request: ProductRequest) async throws -> Product {
+        fatalError("No se usa en ProductListViewModelTests")
+    }
+
+    func updateProduct(id: Int, _ request: ProductRequest) async throws -> Product {
+        fatalError("No se usa en ProductListViewModelTests")
+    }
+
     func release() {
         pending?.resume()
         pending = nil
