@@ -33,7 +33,6 @@ struct ProductDetailView: View {
         .padding()
         .navigationTitle(product.name)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(.hidden, for: .tabBar)
     }
 }
 
