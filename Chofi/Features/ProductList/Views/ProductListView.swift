@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ProductListView: View {
-    @StateObject private var viewModel = ProductListViewModel()
+    @State private var viewModel = ProductListViewModel()
 
     var body: some View {
+        @Bindable var viewModel = viewModel
+
         TabView {
             List(viewModel.filteredProducts) { product in
                 NavigationLink(value: product) {
