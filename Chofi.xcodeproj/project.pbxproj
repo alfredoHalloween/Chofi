@@ -47,6 +47,8 @@
 		A05C0F1A00000000000C0001 /* BrandPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000C0002 /* BrandPickerViewModel.swift */; };
 		A05C0F1A00000000000C0003 /* BrandPickerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000C0004 /* BrandPickerViewModelTests.swift */; };
 		A05C0F1A00000000000D0001 /* BrandPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000D0002 /* BrandPickerView.swift */; };
+		A06C0F1A00000000000A0001 /* CurrencyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06C0F1A00000000000A0002 /* CurrencyInput.swift */; };
+		A06C0F1A00000000000A0004 /* CurrencyInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06C0F1A00000000000A0005 /* CurrencyInputTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -108,6 +110,8 @@
 		A05C0F1A00000000000C0002 /* BrandPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandPickerViewModel.swift; sourceTree = "<group>"; };
 		A05C0F1A00000000000C0004 /* BrandPickerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandPickerViewModelTests.swift; sourceTree = "<group>"; };
 		A05C0F1A00000000000D0002 /* BrandPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandPickerView.swift; sourceTree = "<group>"; };
+		A06C0F1A00000000000A0002 /* CurrencyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInput.swift; sourceTree = "<group>"; };
+		A06C0F1A00000000000A0005 /* CurrencyInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInputTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,7 @@
 				4562924858DA990CBA5ECF44 /* ProductRequestEncodingTests.swift */,
 				A05C0F1A00000000000B0006 /* BrandDecodingTests.swift */,
 				A05C0F1A00000000000C0004 /* BrandPickerViewModelTests.swift */,
+				A06C0F1A00000000000A0005 /* CurrencyInputTests.swift */,
 			);
 			path = ChofiTests;
 			sourceTree = "<group>";
@@ -362,8 +367,17 @@
 				C40F1A00000000C0FFEE000D /* Views */,
 				3F039F0AF2CC86BA1EFA77A3 /* State */,
 				A05C0F1A00000000000A0003 /* Network */,
+				A06C0F1A00000000000A0003 /* Formatting */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		A06C0F1A00000000000A0003 /* Formatting */ = {
+			isa = PBXGroup;
+			children = (
+				A06C0F1A00000000000A0002 /* CurrencyInput.swift */,
+			);
+			path = Formatting;
 			sourceTree = "<group>";
 		};
 		A05C0F1A00000000000A0003 /* Network */ = {
@@ -579,6 +593,7 @@
 				A05C0F1A00000000000B0003 /* BrandsDataManager.swift in Sources */,
 				A05C0F1A00000000000C0001 /* BrandPickerViewModel.swift in Sources */,
 				A05C0F1A00000000000D0001 /* BrandPickerView.swift in Sources */,
+				A06C0F1A00000000000A0001 /* CurrencyInput.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,6 +609,7 @@
 				B4449B4577C0C25EAB038B97 /* ProductRequestEncodingTests.swift in Sources */,
 				A05C0F1A00000000000B0005 /* BrandDecodingTests.swift in Sources */,
 				A05C0F1A00000000000C0003 /* BrandPickerViewModelTests.swift in Sources */,
+				A06C0F1A00000000000A0004 /* CurrencyInputTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

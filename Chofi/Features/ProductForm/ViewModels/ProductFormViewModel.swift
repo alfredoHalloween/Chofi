@@ -20,32 +20,30 @@ final class ProductFormViewModel {
     var barcode = ""
     var name = ""
     var selectedBrand: Brand?
-    var priceText = ""
+    /// Precio en centavos de MXN. `0` significa vacío.
+    var priceCents = 0
 
     private(set) var saveState: LoaderState<Product> = .idle
 
     private let mode: ProductFormMode
     private let dataManager: ProductsDataManagerProtocol
-    private let locale: Locale
     private let initialValues: Values
 
-    /// Valores del formulario tal como se escriben, para detectar cambios.
-    /// La marca se compara por `id`.
+    /// Valores del formulario, para detectar cambios.
+    /// La marca se compara por `id` y el precio por centavos.
     private struct Values: Equatable {
         var barcode = ""
         var name = ""
         var selectedBrandId: Int?
-        var priceText = ""
+        var priceCents = 0
     }
 
     init(
         mode: ProductFormMode,
-        dataManager: ProductsDataManagerProtocol = ProductsDataManager(),
-        locale: Locale = .current
+        dataManager: ProductsDataManagerProtocol = ProductsDataManager()
     ) {
         self.mode = mode
         self.dataManager = dataManager
-        self.locale = locale
 
         var values = Values()
         var brand: Brand?
@@ -55,13 +53,13 @@ final class ProductFormViewModel {
             values.barcode = product.barcode ?? ""
             values.name = product.name
             values.selectedBrandId = product.brand.id
-            values.priceText = product.price.formatted(.number.locale(locale).grouping(.never))
+            values.priceCents = CurrencyInput.cents(from: product.price)
         }
         initialValues = values
         barcode = values.barcode
         name = values.name
         selectedBrand = brand
-        priceText = values.priceText
+        priceCents = values.priceCents
     }
 
     var title: String {
@@ -128,17 +126,11 @@ final class ProductFormViewModel {
     // MARK: - Privado
 
     private var currentValues: Values {
-        Values(barcode: barcode, name: name, selectedBrandId: selectedBrand?.id, priceText: priceText)
+        Values(barcode: barcode, name: name, selectedBrandId: selectedBrand?.id, priceCents: priceCents)
     }
 
-    /// Precio > 0 con máximo 2 decimales, usando el separador decimal del locale.
-    /// Todo el texto debe ser numérico: `Decimal(string:)` por sí solo ignora el texto sobrante ("12a" → 12).
+    /// Precio > 0. Los centavos ya garantizan 2 decimales como máximo.
     private var parsedPrice: Decimal? {
-        let text = priceText.trimmingCharacters(in: .whitespaces)
-        let separator = NSRegularExpression.escapedPattern(for: locale.decimalSeparator ?? ".")
-        guard text.range(of: "^[0-9]+(\(separator)[0-9]{1,2})?$", options: .regularExpression) != nil,
-              let price = Decimal(string: text, locale: locale), price > 0
-        else { return nil }
-        return price
+        priceCents > 0 ? CurrencyInput.decimal(fromCents: priceCents) : nil
     }
 }

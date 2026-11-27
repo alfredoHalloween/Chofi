@@ -58,20 +58,18 @@ private struct FakeError: LocalizedError {
 @MainActor
 final class ProductFormViewModelTests: XCTestCase {
 
-    private let mexico = Locale(identifier: "es_MX")
-
     private func makeViewModel(
         mode: ProductFormMode = .create,
         dataManager: FakeProductFormDataManager? = nil
     ) -> ProductFormViewModel {
-        ProductFormViewModel(mode: mode, dataManager: dataManager ?? FakeProductFormDataManager(), locale: mexico)
+        ProductFormViewModel(mode: mode, dataManager: dataManager ?? FakeProductFormDataManager())
     }
 
     private func fillValidForm(_ viewModel: ProductFormViewModel) {
         viewModel.barcode = "7501040094422"
         viewModel.name = "Yoplait Disfruta Fresa 307g"
         viewModel.selectedBrand = sigma
-        viewModel.priceText = "28.50"
+        viewModel.priceCents = 2850
     }
 
     private let sigma = Brand(id: 3, name: "Sigma")
@@ -85,7 +83,7 @@ final class ProductFormViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.barcode, "")
         XCTAssertEqual(viewModel.name, "")
         XCTAssertNil(viewModel.selectedBrand)
-        XCTAssertEqual(viewModel.priceText, "")
+        XCTAssertEqual(viewModel.priceCents, 0)
         XCTAssertFalse(viewModel.canSave)
     }
 
@@ -97,7 +95,19 @@ final class ProductFormViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.barcode, "7501000000011")
         XCTAssertEqual(viewModel.name, "Arroz 1 kg")
         XCTAssertEqual(viewModel.selectedBrand, product.brand)
-        XCTAssertEqual(viewModel.priceText, "32.5")
+        XCTAssertEqual(viewModel.priceCents, 3250)
+        XCTAssertFalse(viewModel.hasChanges)
+        XCTAssertFalse(viewModel.canSave)
+    }
+
+    func testEditChangingPriceAndRestoringOriginalCentsHasNoChanges() {
+        let viewModel = makeViewModel(mode: .edit(Product.samples[0]))   // $32.50
+
+        viewModel.priceCents = 2990
+        XCTAssertTrue(viewModel.hasChanges)
+        XCTAssertTrue(viewModel.canSave)
+
+        viewModel.priceCents = 3250
         XCTAssertFalse(viewModel.hasChanges)
         XCTAssertFalse(viewModel.canSave)
     }
@@ -122,7 +132,7 @@ final class ProductFormViewModelTests: XCTestCase {
     func testCreateWithoutBrandHasNoRequestEvenWithValidNameAndPrice() {
         let viewModel = makeViewModel()
         viewModel.name = "Yoplait Disfruta Fresa 307g"
-        viewModel.priceText = "28.50"
+        viewModel.priceCents = 2850
 
         XCTAssertNil(viewModel.selectedBrand)
         XCTAssertNil(viewModel.request)
@@ -173,15 +183,13 @@ final class ProductFormViewModelTests: XCTestCase {
         }
     }
 
-    func testInvalidPriceIsInvalid() {
+    func testZeroPriceCentsIsInvalid() {
         let viewModel = makeViewModel()
         fillValidForm(viewModel)
+        viewModel.priceCents = 0
 
-        for price in ["0", "12.345", "12a", "abc", "", "0.00"] {
-            viewModel.priceText = price
-            XCTAssertNil(viewModel.request, "priceText: \"\(price)\"")
-            XCTAssertFalse(viewModel.canSave, "priceText: \"\(price)\"")
-        }
+        XCTAssertNil(viewModel.request)
+        XCTAssertFalse(viewModel.canSave)
     }
 
     func testWhitespaceBarcodeIsSentAsNil() {
@@ -193,10 +201,10 @@ final class ProductFormViewModelTests: XCTestCase {
         XCTAssertNil(viewModel.request?.barcode)
     }
 
-    func testPriceIsParsedWithMexicanLocale() {
+    func testPriceCentsAreSentAsDecimal() {
         let viewModel = makeViewModel()
         fillValidForm(viewModel)
-        viewModel.priceText = "28.50"
+        viewModel.priceCents = 2850
 
         XCTAssertEqual(viewModel.request?.price, Decimal(string: "28.50"))
     }
@@ -221,7 +229,7 @@ final class ProductFormViewModelTests: XCTestCase {
         let product = Product.samples[4]   // id 5
         let dataManager = FakeProductFormDataManager(result: .success(product))
         let viewModel = makeViewModel(mode: .edit(product), dataManager: dataManager)
-        viewModel.priceText = "29.90"
+        viewModel.priceCents = 2990
 
         let saved = await viewModel.save()
 
@@ -243,7 +251,7 @@ final class ProductFormViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.barcode, "7501040094422")
         XCTAssertEqual(viewModel.name, "Yoplait Disfruta Fresa 307g")
         XCTAssertEqual(viewModel.selectedBrand, sigma)
-        XCTAssertEqual(viewModel.priceText, "28.50")
+        XCTAssertEqual(viewModel.priceCents, 2850)
 
         viewModel.dismissError()
         guard case .idle = viewModel.saveState else {
