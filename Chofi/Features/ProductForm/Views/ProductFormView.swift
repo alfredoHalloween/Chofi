@@ -68,8 +68,8 @@ struct ProductFormView: View {
                 }
 
                 Section("Precio") {
-                    TextField("0.00", text: priceText)
-                        .keyboardType(.decimalPad)
+                    TextField("$0.00", text: priceText)
+                        .keyboardType(.numberPad)
                 }
             }
             .disabled(viewModel.saveState.isLoading)
