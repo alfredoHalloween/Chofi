@@ -40,6 +40,7 @@
 		96E11C3B7405C182C3050888 /* ProductsDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AEA4F24A83ADEEED143B59F4 /* ProductsDataManager.swift */; };
 		BA5BBA2254A08437BD6FDBE8 /* ProductFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DDD06BF4D614BFABE629228 /* ProductFormViewModel.swift */; };
 		4BE4675C7FD4A04F7FFFBB07 /* ProductFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6D7C351F7931CEB93CB8BE0 /* ProductFormView.swift */; };
+		A05C0F1A00000000000A0001 /* APIConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000A0002 /* APIConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		AEA4F24A83ADEEED143B59F4 /* ProductsDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsDataManager.swift; sourceTree = "<group>"; };
 		8DDD06BF4D614BFABE629228 /* ProductFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFormViewModel.swift; sourceTree = "<group>"; };
 		F6D7C351F7931CEB93CB8BE0 /* ProductFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductFormView.swift; sourceTree = "<group>"; };
+		A05C0F1A00000000000A0002 /* APIConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,8 +311,17 @@
 				C40F1A00000000C0FFEE000C /* Utils */,
 				C40F1A00000000C0FFEE000D /* Views */,
 				3F039F0AF2CC86BA1EFA77A3 /* State */,
+				A05C0F1A00000000000A0003 /* Network */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		A05C0F1A00000000000A0003 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				A05C0F1A00000000000A0002 /* APIConfig.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		3F039F0AF2CC86BA1EFA77A3 /* State */ = {
@@ -513,6 +524,7 @@
 				0C260C793D58D7F38CFDFFA1 /* ProductRequest.swift in Sources */,
 				E3652025CD729E36E27A6902 /* ProductsEndpoint.swift in Sources */,
 				96E11C3B7405C182C3050888 /* ProductsDataManager.swift in Sources */,
+				A05C0F1A00000000000A0001 /* APIConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
