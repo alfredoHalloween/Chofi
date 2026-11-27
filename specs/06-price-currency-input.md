@@ -1,6 +1,6 @@
 # SPEC 06 — Campo de precio con formato de moneda
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** SPEC 04, SPEC 05
 > **Date:** 2026-11-26
 > **Objective:** Cambiar el campo "Precio" de `ProductFormView` a una entrada tipo caja registradora que solo acepta dígitos y muestra el monto formateado en MXN (`$1,250.50`), con un máximo de $999,999.99.
@@ -70,10 +70,11 @@ init(mode: ProductFormMode,
 // parsedPrice: priceCents > 0 ? CurrencyInput.decimal(fromCents:) : nil
 ```
 
-En `ProductFormView`, el campo usa un `Binding<String>` calculado:
+En `ProductFormView`, el campo usa un `@State private var priceText: String` con `.onChange`:
 
-- `get` es `CurrencyInput.text(fromCents: viewModel.priceCents)`;
-- `set` asigna `CurrencyInput.cents(from:)` cuando no es nil.
+- `priceText` se inicializa con `CurrencyInput.text(fromCents: viewModel.priceCents)`;
+- en `.onChange(of: priceText)`, los centavos son `CurrencyInput.cents(from:)`, o el valor anterior si es nil;
+- se asignan a `viewModel.priceCents` y `priceText` se reescribe con el texto formateado.
 
 Convenciones:
 
@@ -157,7 +158,9 @@ Cada paso deja el proyecto compilando.
 - **No:** mantener `priceText` formateado con `didSet`. Mezcla presentación y estado.
 - **Sí:** `CurrencyInput` como `enum` puro en `Chofi/Shared/Formatting/`, con pruebas propias. Se puede reutilizar sin acoplarlo al formulario.
 - **No:** dejar la lógica dentro de `ProductFormViewModel`.
-- **Sí:** un `Binding<String>` calculado en la vista. **No:** un `FormatStyle` con `TextField(value:format:)`. Ese solo confirma el valor al salir del campo, como ya se descartó en SPEC 04.
+- **Sí:** un `@State` de texto en la vista que se reescribe formateado desde `.onChange`. Así SwiftUI actualiza el campo mientras se escribe.
+- **No:** un `Binding<String>` calculado (`get` formatea desde `priceCents`). Era la decisión original, pero en el simulador el campo solo se formateaba al salir de él. SwiftUI no reemplaza el texto de un `TextField` en edición cuando el `get` regresa otro valor.
+- **No:** un `FormatStyle` con `TextField(value:format:)`. Ese solo confirma el valor al salir del campo, como ya se descartó en SPEC 04.
 - **Sí:** quitar `locale` del `init` de `ProductFormViewModel`. Ya no se interpreta texto con locale.
 - **Sí:** en edición, un precio con más de 2 decimales se redondea con `.plain` a centavos. El servicio usa centavos de MXN.
 - **Sí:** `.numberPad`. Sin punto decimal, el teclado solo ofrece lo que el campo acepta.
@@ -168,7 +171,7 @@ Cada paso deja el proyecto compilando.
 
 | Riesgo | Mitigación |
 | --- | --- |
-| Al reformatear el texto, SwiftUI deja el cursor en una posición rara o el `TextField` no refleja el valor corregido cuando se ignora una tecla | El `get` del binding siempre devuelve el texto formateado de `priceCents`. Se verifica en el simulador con los criterios de "máximo" y "pegar `abc`". Si el campo muestra el texto rechazado, se fuerza el refresco reasignando `priceCents`. |
+| Al reformatear el texto, SwiftUI deja el cursor en una posición rara o el `TextField` no refleja el valor corregido cuando se ignora una tecla | Ocurrió con el `Binding` calculado. Se resolvió reescribiendo un `@State` desde `.onChange`, que siempre deja el texto formateado de `priceCents`, también cuando se rechaza una tecla. Se verifica en el simulador con los criterios de "máximo" y "pegar `abc`". |
 | El borrado elimina un carácter de formato (`,` o `$`) en lugar de un dígito | `cents(from:)` reextrae los dígitos del texto completo. Borrar `$` o `,` deja los mismos dígitos, y el campo se ve igual. Se verifica en el simulador. Si molesta, se trata en otra spec. |
 | `Decimal` → centavos con un precio del servidor que tiene más de 2 decimales | Redondeo `.plain`, cubierto por la prueba `28.555` → `2856`. |
 | `objectVersion = 56`: los archivos nuevos no se detectan solos | Cada paso registra sus archivos en `project.pbxproj`. |

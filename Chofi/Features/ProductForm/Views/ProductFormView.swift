@@ -15,6 +15,8 @@ struct ProductFormView: View {
     @State private var isScanning = false
     @State private var scannedCode: String?
     @State private var isConfirmingDiscard = false
+    /// Lo que muestra el campo "Precio". La fuente de verdad es `viewModel.priceCents`.
+    @State private var priceText: String
 
     private let onSaved: (Product) -> Void
 
@@ -23,7 +25,9 @@ struct ProductFormView: View {
         dataManager: ProductsDataManagerProtocol = ProductsDataManager(),
         onSaved: @escaping (Product) -> Void
     ) {
-        _viewModel = State(initialValue: ProductFormViewModel(mode: mode, dataManager: dataManager))
+        let viewModel = ProductFormViewModel(mode: mode, dataManager: dataManager)
+        _viewModel = State(initialValue: viewModel)
+        _priceText = State(initialValue: CurrencyInput.text(fromCents: viewModel.priceCents))
         self.onSaved = onSaved
     }
 
@@ -68,8 +72,11 @@ struct ProductFormView: View {
                 }
 
                 Section("Precio") {
-                    TextField("$0.00", text: priceText)
+                    TextField("$0.00", text: $priceText)
                         .keyboardType(.numberPad)
+                        .onChange(of: priceText) { _, text in
+                            reformatPrice(text)
+                        }
                 }
             }
             .disabled(viewModel.saveState.isLoading)
@@ -140,17 +147,20 @@ struct ProductFormView: View {
         )
     }
 
-    /// Texto del precio tipo caja registradora: siempre se muestra formateado desde los centavos.
+    /// Entrada tipo caja registradora: actualiza los centavos y reescribe el campo ya formateado.
     /// Si el texto excede el máximo, se conserva el valor anterior.
-    private var priceText: Binding<String> {
-        Binding(
-            get: { CurrencyInput.text(fromCents: viewModel.priceCents) },
-            set: { text in
-                if let cents = CurrencyInput.cents(from: text) {
-                    viewModel.priceCents = cents
-                }
-            }
-        )
+    ///
+    /// Se reescribe un `@State` desde `.onChange` porque SwiftUI no reemplaza el texto
+    /// de un `TextField` en edición cuando el `get` de un `Binding` calculado regresa otro valor.
+    private func reformatPrice(_ text: String) {
+        let cents = CurrencyInput.cents(from: text) ?? viewModel.priceCents
+        viewModel.priceCents = cents
+
+        let formatted = CurrencyInput.text(fromCents: cents)
+        // Reasignar dispara `.onChange` otra vez, pero con el texto ya formateado no hay más cambios.
+        if formatted != text {
+            priceText = formatted
+        }
     }
 }
 
