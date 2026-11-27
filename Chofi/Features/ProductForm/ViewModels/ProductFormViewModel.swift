@@ -19,7 +19,7 @@ final class ProductFormViewModel {
 
     var barcode = ""
     var name = ""
-    var brandIdText = ""
+    var selectedBrand: Brand?
     var priceText = ""
 
     private(set) var saveState: LoaderState<Product> = .idle
@@ -30,10 +30,11 @@ final class ProductFormViewModel {
     private let initialValues: Values
 
     /// Valores del formulario tal como se escriben, para detectar cambios.
+    /// La marca se compara por `id`.
     private struct Values: Equatable {
         var barcode = ""
         var name = ""
-        var brandIdText = ""
+        var selectedBrandId: Int?
         var priceText = ""
     }
 
@@ -47,16 +48,19 @@ final class ProductFormViewModel {
         self.locale = locale
 
         var values = Values()
+        var brand: Brand?
         if case .edit(let product) = mode {
+            // La marca sale del producto, sin pedir nada al servicio.
+            brand = product.brand
             values.barcode = product.barcode ?? ""
             values.name = product.name
-            values.brandIdText = String(product.brand.id)
+            values.selectedBrandId = product.brand.id
             values.priceText = product.price.formatted(.number.locale(locale).grouping(.never))
         }
         initialValues = values
         barcode = values.barcode
         name = values.name
-        brandIdText = values.brandIdText
+        selectedBrand = brand
         priceText = values.priceText
     }
 
@@ -71,7 +75,7 @@ final class ProductFormViewModel {
     var request: ProductRequest? {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedName.isEmpty,
-              let brandId = Int(brandIdText.trimmingCharacters(in: .whitespaces)), brandId > 0,
+              let brandId = selectedBrand?.id,
               let price = parsedPrice
         else { return nil }
 
@@ -124,7 +128,7 @@ final class ProductFormViewModel {
     // MARK: - Privado
 
     private var currentValues: Values {
-        Values(barcode: barcode, name: name, brandIdText: brandIdText, priceText: priceText)
+        Values(barcode: barcode, name: name, selectedBrandId: selectedBrand?.id, priceText: priceText)
     }
 
     /// Precio > 0 con máximo 2 decimales, usando el separador decimal del locale.

@@ -70,9 +70,11 @@ final class ProductFormViewModelTests: XCTestCase {
     private func fillValidForm(_ viewModel: ProductFormViewModel) {
         viewModel.barcode = "7501040094422"
         viewModel.name = "Yoplait Disfruta Fresa 307g"
-        viewModel.brandIdText = "3"
+        viewModel.selectedBrand = sigma
         viewModel.priceText = "28.50"
     }
+
+    private let sigma = Brand(id: 3, name: "Sigma")
 
     // MARK: - Estado inicial
 
@@ -82,7 +84,7 @@ final class ProductFormViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.title, "Nuevo producto")
         XCTAssertEqual(viewModel.barcode, "")
         XCTAssertEqual(viewModel.name, "")
-        XCTAssertEqual(viewModel.brandIdText, "")
+        XCTAssertNil(viewModel.selectedBrand)
         XCTAssertEqual(viewModel.priceText, "")
         XCTAssertFalse(viewModel.canSave)
     }
@@ -94,7 +96,7 @@ final class ProductFormViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.title, "Editar producto")
         XCTAssertEqual(viewModel.barcode, "7501000000011")
         XCTAssertEqual(viewModel.name, "Arroz 1 kg")
-        XCTAssertEqual(viewModel.brandIdText, "1")
+        XCTAssertEqual(viewModel.selectedBrand, product.brand)
         XCTAssertEqual(viewModel.priceText, "32.5")
         XCTAssertFalse(viewModel.hasChanges)
         XCTAssertFalse(viewModel.canSave)
@@ -113,6 +115,39 @@ final class ProductFormViewModelTests: XCTestCase {
 
         XCTAssertTrue(viewModel.hasChanges)
         XCTAssertTrue(viewModel.canSave)
+    }
+
+    // MARK: - Marca (SPEC 05)
+
+    func testCreateWithoutBrandHasNoRequestEvenWithValidNameAndPrice() {
+        let viewModel = makeViewModel()
+        viewModel.name = "Yoplait Disfruta Fresa 307g"
+        viewModel.priceText = "28.50"
+
+        XCTAssertNil(viewModel.selectedBrand)
+        XCTAssertNil(viewModel.request)
+        XCTAssertFalse(viewModel.canSave)
+    }
+
+    func testEditChoosingAnotherBrandHasChangesAndSendsNewBrandId() {
+        let viewModel = makeViewModel(mode: .edit(Product.samples[0]))   // brand 1
+
+        viewModel.selectedBrand = Brand(id: 2, name: "La Cocina")
+
+        XCTAssertTrue(viewModel.hasChanges)
+        XCTAssertTrue(viewModel.canSave)
+        XCTAssertEqual(viewModel.request?.brandId, 2)
+    }
+
+    func testEditChoosingOriginalBrandAgainHasNoChanges() {
+        let product = Product.samples[0]
+        let viewModel = makeViewModel(mode: .edit(product))
+
+        viewModel.selectedBrand = Brand(id: 2, name: "La Cocina")
+        viewModel.selectedBrand = product.brand
+
+        XCTAssertFalse(viewModel.hasChanges)
+        XCTAssertFalse(viewModel.canSave)
     }
 
     // MARK: - Validación
@@ -135,16 +170,6 @@ final class ProductFormViewModelTests: XCTestCase {
         for name in ["", "   "] {
             viewModel.name = name
             XCTAssertNil(viewModel.request, "name: \"\(name)\"")
-        }
-    }
-
-    func testInvalidBrandIdIsInvalid() {
-        let viewModel = makeViewModel()
-        fillValidForm(viewModel)
-
-        for brandId in ["0", "abc", "", "-3"] {
-            viewModel.brandIdText = brandId
-            XCTAssertNil(viewModel.request, "brandIdText: \"\(brandId)\"")
         }
     }
 
@@ -217,7 +242,7 @@ final class ProductFormViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.saveState.error, "Sin conexión")
         XCTAssertEqual(viewModel.barcode, "7501040094422")
         XCTAssertEqual(viewModel.name, "Yoplait Disfruta Fresa 307g")
-        XCTAssertEqual(viewModel.brandIdText, "3")
+        XCTAssertEqual(viewModel.selectedBrand, sigma)
         XCTAssertEqual(viewModel.priceText, "28.50")
 
         viewModel.dismissError()
