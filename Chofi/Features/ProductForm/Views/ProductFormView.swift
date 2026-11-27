@@ -52,11 +52,6 @@ struct ProductFormView: View {
                     TextField("Nombre del producto", text: $viewModel.name)
                 }
 
-                Section("ID de marca") {
-                    TextField("ID de marca", text: $viewModel.brandIdText)
-                        .keyboardType(.numberPad)
-                }
-
                 Section("Precio") {
                     TextField("0.00", text: $viewModel.priceText)
                         .keyboardType(.decimalPad)
