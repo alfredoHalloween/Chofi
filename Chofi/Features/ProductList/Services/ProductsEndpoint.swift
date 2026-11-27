@@ -15,7 +15,7 @@ enum ProductsEndpoint: Endpoint {
 
     /// URL del túnel de ngrok. Cambia cada vez que se reinicia el túnel.
     var baseURL: String {
-        "https://805e-2806-2f0-a5c1-d7c7-604e-b8a2-7c5b-59a1.ngrok-free.app"
+        "https://8bd4-2806-2f0-a5c1-d7c7-604e-b8a2-7c5b-59a1.ngrok-free.app"
     }
 
     var path: String {
