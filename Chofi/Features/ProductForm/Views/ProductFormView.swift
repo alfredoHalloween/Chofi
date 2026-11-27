@@ -52,6 +52,21 @@ struct ProductFormView: View {
                     TextField("Nombre del producto", text: $viewModel.name)
                 }
 
+                Section("Marca") {
+                    NavigationLink {
+                        BrandPickerView(selection: $viewModel.selectedBrand)
+                    } label: {
+                        LabeledContent("Marca") {
+                            if let brand = viewModel.selectedBrand {
+                                Text(brand.name)
+                            } else {
+                                Text("Seleccionar")
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                    }
+                }
+
                 Section("Precio") {
                     TextField("0.00", text: $viewModel.priceText)
                         .keyboardType(.decimalPad)
