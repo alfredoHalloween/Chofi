@@ -68,7 +68,7 @@ struct ProductFormView: View {
                 }
 
                 Section("Precio") {
-                    TextField("0.00", text: $viewModel.priceText)
+                    TextField("0.00", text: priceText)
                         .keyboardType(.decimalPad)
                 }
             }
@@ -136,6 +136,19 @@ struct ProductFormView: View {
             get: { viewModel.saveState.error != nil },
             set: { isPresented in
                 if !isPresented { viewModel.dismissError() }
+            }
+        )
+    }
+
+    /// Texto del precio tipo caja registradora: siempre se muestra formateado desde los centavos.
+    /// Si el texto excede el máximo, se conserva el valor anterior.
+    private var priceText: Binding<String> {
+        Binding(
+            get: { CurrencyInput.text(fromCents: viewModel.priceCents) },
+            set: { text in
+                if let cents = CurrencyInput.cents(from: text) {
+                    viewModel.priceCents = cents
+                }
             }
         )
     }
