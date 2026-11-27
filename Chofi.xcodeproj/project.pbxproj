@@ -46,6 +46,7 @@
 		A05C0F1A00000000000B0005 /* BrandDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000B0006 /* BrandDecodingTests.swift */; };
 		A05C0F1A00000000000C0001 /* BrandPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000C0002 /* BrandPickerViewModel.swift */; };
 		A05C0F1A00000000000C0003 /* BrandPickerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000C0004 /* BrandPickerViewModelTests.swift */; };
+		A05C0F1A00000000000D0001 /* BrandPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000D0002 /* BrandPickerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +107,7 @@
 		A05C0F1A00000000000B0006 /* BrandDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandDecodingTests.swift; sourceTree = "<group>"; };
 		A05C0F1A00000000000C0002 /* BrandPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandPickerViewModel.swift; sourceTree = "<group>"; };
 		A05C0F1A00000000000C0004 /* BrandPickerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandPickerViewModelTests.swift; sourceTree = "<group>"; };
+		A05C0F1A00000000000D0002 /* BrandPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandPickerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,8 +297,17 @@
 			children = (
 				A05C0F1A00000000000B0008 /* Services */,
 				A05C0F1A00000000000C0005 /* ViewModels */,
+				A05C0F1A00000000000D0003 /* Views */,
 			);
 			path = BrandPicker;
+			sourceTree = "<group>";
+		};
+		A05C0F1A00000000000D0003 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A05C0F1A00000000000D0002 /* BrandPickerView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		A05C0F1A00000000000C0005 /* ViewModels */ = {
@@ -567,6 +578,7 @@
 				A05C0F1A00000000000B0001 /* BrandsEndpoint.swift in Sources */,
 				A05C0F1A00000000000B0003 /* BrandsDataManager.swift in Sources */,
 				A05C0F1A00000000000C0001 /* BrandPickerViewModel.swift in Sources */,
+				A05C0F1A00000000000D0001 /* BrandPickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
