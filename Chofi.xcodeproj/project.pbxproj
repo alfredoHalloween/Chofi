@@ -49,6 +49,7 @@
 		A05C0F1A00000000000D0001 /* BrandPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05C0F1A00000000000D0002 /* BrandPickerView.swift */; };
 		A06C0F1A00000000000A0001 /* CurrencyInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06C0F1A00000000000A0002 /* CurrencyInput.swift */; };
 		A06C0F1A00000000000A0004 /* CurrencyInputTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A06C0F1A00000000000A0005 /* CurrencyInputTests.swift */; };
+		A07C0F1A00000000000A0001 /* ProductsEndpointTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07C0F1A00000000000A0002 /* ProductsEndpointTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -112,6 +113,7 @@
 		A05C0F1A00000000000D0002 /* BrandPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandPickerView.swift; sourceTree = "<group>"; };
 		A06C0F1A00000000000A0002 /* CurrencyInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInput.swift; sourceTree = "<group>"; };
 		A06C0F1A00000000000A0005 /* CurrencyInputTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyInputTests.swift; sourceTree = "<group>"; };
+		A07C0F1A00000000000A0002 /* ProductsEndpointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductsEndpointTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 				A05C0F1A00000000000B0006 /* BrandDecodingTests.swift */,
 				A05C0F1A00000000000C0004 /* BrandPickerViewModelTests.swift */,
 				A06C0F1A00000000000A0005 /* CurrencyInputTests.swift */,
+				A07C0F1A00000000000A0002 /* ProductsEndpointTests.swift */,
 			);
 			path = ChofiTests;
 			sourceTree = "<group>";
@@ -610,6 +613,7 @@
 				A05C0F1A00000000000B0005 /* BrandDecodingTests.swift in Sources */,
 				A05C0F1A00000000000C0003 /* BrandPickerViewModelTests.swift in Sources */,
 				A06C0F1A00000000000A0004 /* CurrencyInputTests.swift in Sources */,
+				A07C0F1A00000000000A0001 /* ProductsEndpointTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

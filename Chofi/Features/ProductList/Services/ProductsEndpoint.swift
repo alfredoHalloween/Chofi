@@ -9,9 +9,9 @@ import Foundation
 import NetworkKit
 
 enum ProductsEndpoint: Endpoint {
-    case products                                  // GET  /
-    case create(ProductRequest)                    // POST /
-    case update(id: Int, request: ProductRequest)  // PUT  /{id}
+    case products                                  // GET  /product
+    case create(ProductRequest)                    // POST /product
+    case update(id: Int, request: ProductRequest)  // PUT  /product/{id}
 
     var baseURL: String {
         APIConfig.baseURL
@@ -19,7 +19,7 @@ enum ProductsEndpoint: Endpoint {
 
     var path: String {
         switch self {
-        case .products: return "/"
+        case .products: return "/product"
         case .create: return "/product"
         case .update(let id, _): return "/product/\(id)"
         }
