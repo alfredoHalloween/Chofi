@@ -1,6 +1,6 @@
 # SPEC 07 — Rutas de producto bajo `/product`
 
-> **Status:** Aprobado
+> **Status:** Implementado
 > **Depends on:** SPEC 03, SPEC 04
 > **Date:** 2026-11-27
 > **Objective:** Alinear `ProductsEndpoint` con la SPEC 12 de msvc-products, cambiando el listado de `GET /` a `GET /product` y fijando con pruebas la ruta y el método de cada caso del enum.
